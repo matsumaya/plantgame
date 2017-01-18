@@ -110,6 +110,14 @@ function update() {
 
         player.animations.play('right');
     }
+    else if (cursors.up.isDown)
+    {
+      //jump?
+      player.body.velocity.y = -300;
+
+      console.log("the guy jumps");
+    }
+
     else
     {
         //  Stand still
