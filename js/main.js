@@ -114,7 +114,7 @@ function update() {
     }
     else if (cursors.up.isDown)
     {
-      if characterJumped = false
+      if (characterJumped == false)
       {
         player.body.velocity.y = -300;
         console.log("the guy jumps");
