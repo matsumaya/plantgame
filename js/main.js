@@ -76,7 +76,6 @@ function create() {
 
     stars.enableBody = true;
 
-
     //  Here we'll create 12 of them evenly spaced apart
     for (var i = 0; i < 12; i++)
     {
@@ -117,7 +116,7 @@ function update() {
     game.physics.arcade.collide(baddie, platforms);
 
     game.physics.arcade.overlap(seedling, stars, collectStar, null, this);
-
+    game.physics.arcade.overlap(seedling, baddie, seedlingDies, null, this);
 
     //  Reset the seedlings velocity (movement)
     seedling.body.velocity.x = 0;
@@ -170,5 +169,17 @@ function collectStar (seedling, star) {
     score += 10;
     scoreText.text = 'Score: ' + score;
 
+
+}
+function seedlingDies (seedling, baddie) {
+
+  seedling.kill();
+  var style = { font: "32px Arial", fill: "black", wordWrap: true, align: "center", backgroundColor: "white" };
+
+  var text = game.add.text(0, 0, "you died :(", style);
+  text.anchor.set(0.5);
+
+  text.x = 200;
+  text.y = 200;
 
 }
