@@ -47,7 +47,7 @@ function create() {
     ledge.body.immovable = true;
 
     // The player and its settings
-    player = game.add.sprite(32, game.world.height - 150, 'seedling');
+    player = game.add.sprite(32, game.world.height - 100, 'seedling');
 
     //  We need to enable physics on the player
     game.physics.arcade.enable(player);
@@ -86,6 +86,8 @@ function create() {
 //              'right' : Phaser.KeyCode.D});
 }
 
+var characterJumped = false
+//so that the character can only jump once?
 function update() {
     //  Collide the player and the stars with the platforms
     game.physics.arcade.collide(player, platforms);
@@ -110,6 +112,16 @@ function update() {
 
         player.animations.play('right');
     }
+    else if (cursors.up.isDown)
+    {
+      if (characterJumped == false)
+      {
+        player.body.velocity.y = -300;
+        console.log("the guy jumps");
+        //character can only jump after it jumps once/lands on gruond??
+      }
+    }
+
     else
     {
         //  Stand still
