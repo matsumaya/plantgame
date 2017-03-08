@@ -7,6 +7,7 @@ var stars;
 
 var score = 0;
 var scoreText;
+var dandelion;
 
 function preload() {
   game.load.image('sky', 'assets/sky.png');
@@ -14,6 +15,8 @@ function preload() {
   game.load.image('star', 'assets/star.png');
   game.load.spritesheet('seedling', 'assets/seedling.png', 54, 96, 9);
   game.load.spritesheet('baddie', 'assets/baddie.png', 32, 32, 4);
+  game.load.atlasJSONArray('dandelion', 'assets/Dandelion Enemy Clone.png',
+  'assets/Dandelion Enemy Clone.json')
 }
 
 function create() {
@@ -23,6 +26,11 @@ function create() {
 
     //  A simple background for our game
     game.add.sprite(0, 0, 'sky');
+
+    // trying to add dandelion
+    dandelion = game.add.sprite(400, 0, 'dandelion');
+    dandelion.animations.add('blinking');
+    dandelion.animations.play('blinking', 2, true);
 
     //  The platforms group contains the ground and the 2 ledges we can jump on
     platforms = game.add.group();
