@@ -1,0 +1,11 @@
+{"frames":
+  {"Dandelion Enemy clone0.png":
+    {"frame":{"x":0,"y":0,"w":90,"h":90},"rotated":false,"trimmed":false,
+    "spriteSourceSize":{"x":0,"y":0,"w":90,"h":90},"sourceSize":{"w":90,"h":90}},
+    "Dandelion Enemy clone1.png":{"frame":{"x":0,"y":90,"w":90,"h":90},
+    "rotated":false,"trimmed":false,"spriteSourceSize":{"x":0,"y":0,"w":90,"h":90},
+    "sourceSize":{"w":90,"h":90}}
+    },
+"meta":{"app":"https://github.com/juliandescottes/piskel/","version":"1.0",
+"image":"Dandelion Enemy clone.png","format":"RGBA8888","size":{"w":90,"h":180}}
+}
