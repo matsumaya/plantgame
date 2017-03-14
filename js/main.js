@@ -1,17 +1,22 @@
 var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
-var player;
+var seedling;
+var baddie;
 var platforms;
 var cursors;
 var stars;
 
 var score = 0;
 var scoreText;
+var dandelion;
 
 function preload() {
   game.load.image('sky', 'assets/sky.png');
   game.load.image('ground', 'assets/platform.png');
   game.load.image('star', 'assets/star.png');
   game.load.spritesheet('seedling', 'assets/seedling.png', 54, 96, 9);
+  game.load.spritesheet('baddie', 'assets/baddie.png', 32, 32, 4);
+  game.load.atlasJSONArray('dandelion', 'assets/Dandelion Enemy Clone.png',
+  'assets/Dandelion Enemy Clone.json')
 }
 
 function create() {
@@ -21,6 +26,11 @@ function create() {
 
     //  A simple background for our game
     game.add.sprite(0, 0, 'sky');
+
+    // trying to add dandelion
+    dandelion = game.add.sprite(400, 0, 'dandelion');
+    dandelion.animations.add('blinking');
+    dandelion.animations.play('blinking', 2, true);
 
     //  The platforms group contains the ground and the 2 ledges we can jump on
     platforms = game.add.group();
@@ -38,7 +48,7 @@ function create() {
     ground.body.immovable = true;
 
     //  Now let's create two ledges
-    var ledge = platforms.create(400, 400, 'ground');
+    var ledge = platforms.create(200, 400, 'ground');
 
     ledge.body.immovable = true;
 
@@ -46,20 +56,29 @@ function create() {
 
     ledge.body.immovable = true;
 
-    // The player and its settings
-    player = game.add.sprite(32, game.world.height - 100, 'seedling');
+    // The seedling and its settings
+    seedling = game.add.sprite(32, game.world.height - 200, 'seedling');
 
-    //  We need to enable physics on the player
-    game.physics.arcade.enable(player);
+    //add dog thing
+    baddie = game.add.sprite(96, game.world.height - 200, 'baddie');
 
-    //  Player physics properties. Give the little guy a slight bounce.
-    player.body.bounce.y = 0.2;
-    player.body.gravity.y = 300;
-    player.body.collideWorldBounds = true;
+    //  We need to enable physics on the seedling
+    game.physics.arcade.enable(seedling);
+    game.physics.arcade.enable(baddie);
+
+    //  seedling physics properties. Give the little guy a slight bounce.
+    seedling.body.bounce.y = 0.2;
+    seedling.body.gravity.y = 300;
+    seedling.body.collideWorldBounds = true;
+    baddie.body.gravity.y = 300;
+    baddie.body.collideWorldBounds = true;
+    baddie.body.bounce.y = 0.2;
+
+    baddie.body.velocity.x = 100;
 
     //  Our two animations, walking left and right.
-    player.animations.add('left', [0, 1, 2, 3], 10, true);
-    player.animations.add('right', [5, 6, 7, 8], 10, true);
+    seedling.animations.add('left', [0, 1, 2, 3], 10, true);
+    seedling.animations.add('right', [5, 6, 7, 8], 10, true);
 
     stars = game.add.group();
 
@@ -89,34 +108,46 @@ function create() {
 var characterJumped = false
 //so that the character can only jump once?
 function update() {
-    //  Collide the player and the stars with the platforms
-    game.physics.arcade.collide(player, platforms);
+    //  Collide the seedling and the stars with the platforms
+
+    if (baddie.x == game.world.width - baddie.width)
+    {
+      baddie.body.velocity.x = -100;
+    }
+
+    if (baddie.x == 0)
+    {
+      baddie.body.velocity.x = 100;
+    }
+    game.physics.arcade.collide(seedling, platforms);
     game.physics.arcade.collide(stars, platforms);
+    game.physics.arcade.collide(baddie, platforms);
 
-    game.physics.arcade.overlap(player, stars, collectStar, null, this);
+    game.physics.arcade.overlap(seedling, stars, collectStar, null, this);
+    game.physics.arcade.overlap(seedling, baddie, seedlingDies, null, this);
 
-    //  Reset the players velocity (movement)
-    player.body.velocity.x = 0;
+    //  Reset the seedlings velocity (movement)
+    seedling.body.velocity.x = 0;
 
     if (cursors.left.isDown)
     {
         //  Move to the left
-        player.body.velocity.x = -150;
+        seedling.body.velocity.x = -150;
 
-        player.animations.play('left');
+        seedling.animations.play('left');
     }
     else if (cursors.right.isDown)
     {
         //  Move to the right
-        player.body.velocity.x = 150;
+        seedling.body.velocity.x = 150;
 
-        player.animations.play('right');
+        seedling.animations.play('right');
     }
     else if (cursors.up.isDown)
     {
       if (characterJumped == false)
       {
-        player.body.velocity.y = -300;
+        seedling.body.velocity.y = -300;
         console.log("the guy jumps");
         //character can only jump after it jumps once/lands on gruond??
       }
@@ -125,20 +156,19 @@ function update() {
     else
     {
         //  Stand still
-        player.animations.stop();
+        seedling.animations.stop();
 
-        player.frame = 4;
+        seedling.frame = 4;
     }
 
-    //  Allow the player to jump if they are touching the ground.
-    if (cursors.up.isDown && player.body.touching.down)
+    //  Allow the seedling to jump if they are touching the ground.
+    if (cursors.up.isDown && seedling.body.touching.down)
     {
-        player.body.velocity.y = -150;
+        seedling.body.velocity.y = -150;
     }
 
 }
-
-function collectStar (player, star) {
+function collectStar (seedling, star) {
 
     // Removes the star from the screen
     star.kill();
@@ -147,5 +177,17 @@ function collectStar (player, star) {
     score += 10;
     scoreText.text = 'Score: ' + score;
 
+
+}
+function seedlingDies (seedling, baddie) {
+
+  seedling.kill();
+  var style = { font: "32px Arial", fill: "black", wordWrap: true, align: "center", backgroundColor: "white" };
+
+  var text = game.add.text(0, 0, "you died :(", style);
+  text.anchor.set(0.5);
+
+  text.x = 200;
+  text.y = 200;
 
 }
