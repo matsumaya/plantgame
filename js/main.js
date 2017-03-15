@@ -4,6 +4,7 @@ var baddie;
 var platforms;
 var cursors;
 var stars;
+var sky;
 
 var score = 0;
 var scoreText;
@@ -21,11 +22,13 @@ function preload() {
 
 function create() {
 
+    game.world.setBounds(0, 0, 2000, 600);
+
     //  We're going to be using physics, so enable the Arcade Physics system
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
     //  A simple background for our game
-    game.add.sprite(0, 0, 'sky');
+    sky = game.add.sprite(0, 0, 'sky');
 
     // trying to add dandelion
     dandelion = game.add.sprite(400, 0, 'dandelion');
@@ -42,7 +45,8 @@ function create() {
     var ground = platforms.create(0, game.world.height - 64, 'ground');
 
     //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
-    ground.scale.setTo(2, 2);
+    ground.scale.setTo(4, 2);
+    sky.scale.setTo(4, 2);
 
     //  This stops it from falling away when you jump on it
     ground.body.immovable = true;
@@ -69,9 +73,9 @@ function create() {
     //  seedling physics properties. Give the little guy a slight bounce.
     seedling.body.bounce.y = 0.2;
     seedling.body.gravity.y = 300;
-    seedling.body.collideWorldBounds = true;
+    seedling.body.collideWorldBounds = false;
     baddie.body.gravity.y = 300;
-    baddie.body.collideWorldBounds = true;
+    baddie.body.collideWorldBounds = false;
     baddie.body.bounce.y = 0.2;
 
     baddie.body.velocity.x = 100;
@@ -98,11 +102,15 @@ function create() {
     }
 
     scoreText = game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
+    scoreText.fixedToCamera = true;
 
     cursors = game.input.keyboard.createCursorKeys();
 //    cursors = game.input.keyboard.addKeys({'up' : Phaser.KeyCode.W,
 //              'down' : Phaser.KeyCode.S, 'left' : Phaser.KeyCode.A,
 //              'right' : Phaser.KeyCode.D});
+
+    game.camera.follow(seedling);
+
 }
 
 var characterJumped = false
@@ -166,7 +174,12 @@ function update() {
     {
         seedling.body.velocity.y = -150;
     }
-
+        game.camera.x = seedling.x;
+        game.camera.y = seedling.y;
+        console.log(seedling.x + "This is x of seedling");
+        console.log(seedling.y + "This is y of seedling");
+        console.log(game.camera.x + "This is the game camera");
+        console.log(Phaser.Camera.x + "This is the phaser camera");
 }
 function collectStar (seedling, star) {
 
