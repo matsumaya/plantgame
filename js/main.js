@@ -25,7 +25,7 @@ function create() {
     game.world.setBounds(0, 0, 2000, 600);
 
     //  We're going to be using physics, so enable the Arcade Physics system
-    game.physics.startSystem(Phaser.Physics.ARCADE);
+    game.physics.startSysUntem(Phaser.Physics.ARCADE);
 
     //  A simple background for our game
     sky = game.add.sprite(0, 0, 'sky');
@@ -109,7 +109,7 @@ function create() {
 //              'down' : Phaser.KeyCode.S, 'left' : Phaser.KeyCode.A,
 //              'right' : Phaser.KeyCode.D});
 
-    game.camera.follow(seedling);
+    //game.camera.follow(seedling);
 
 }
 
