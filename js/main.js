@@ -59,7 +59,7 @@ function create() {
     ledge = platforms.create(-150, 250, 'ground');
 
     ledge.body.immovable = true;
-
+  
     // The seedling and its settings
     seedling = game.add.sprite(32, game.world.height - 200, 'seedling');
 
@@ -87,6 +87,9 @@ function create() {
     stars = game.add.group();
 
     stars.enableBody = true;
+
+    // add the baddie
+    baddie = game.add.sprite(32, game.world.height - 165, 'baddie');
 
     //  Here we'll create 12 of them evenly spaced apart
     for (var i = 0; i < 12; i++)
