@@ -16,8 +16,8 @@ function preload() {
   game.load.image('star', 'assets/star.png');
   game.load.spritesheet('seedling', 'assets/seedling.png', 54, 96, 9);
   game.load.spritesheet('baddie', 'assets/baddie.png', 32, 32, 4);
-  game.load.atlasJSONArray('dandelion', 'assets/Dandelion Enemy Clone.png',
-  'assets/Dandelion Enemy Clone.json')
+  game.load.atlasJSONArray('dandelion', 'assets/DandelionEnemyClone.png',
+  'assets/DandelionEnemyClone.json')
 }
 
 function create() {
@@ -25,7 +25,7 @@ function create() {
     game.world.setBounds(0, 0, 2000, 600);
 
     //  We're going to be using physics, so enable the Arcade Physics system
-    game.physics.startSysUntem(Phaser.Physics.ARCADE);
+    game.physics.startSystem(Phaser.Physics.ARCADE);
 
     //  A simple background for our game
     sky = game.add.sprite(0, 0, 'sky');
