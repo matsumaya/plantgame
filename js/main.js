@@ -103,6 +103,9 @@ function create() {
 
     scoreText = game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
     scoreText.fixedToCamera = true;
+  
+    hpText = game.add.text(16, 18, 'hp: 0', {fontSize: '32px', fill: '#000'})
+    hpText.fixedToCamera = true;
 
     cursors = game.input.keyboard.createCursorKeys();
 //    cursors = game.input.keyboard.addKeys({'up' : Phaser.KeyCode.W,
