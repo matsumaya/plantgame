@@ -88,9 +88,6 @@ function create() {
 
     stars.enableBody = true;
 
-    // add the baddie
-    baddie = game.add.sprite(32, game.world.height - 165, 'baddie');
-
     //  Here we'll create 12 of them evenly spaced apart
     for (var i = 0; i < 12; i++)
     {
