@@ -193,13 +193,13 @@ function collectStar (seedling, star) {
     score += 10;
     scoreText.text = 'Score: ' + score;
 
-
 }
 function loseHp (seedling, baddie) {
   
   seedling.damage(20);
   hp -= 20;
   hpText.text = 'hp: ' + hp;
+}
 
 function seedlingDies (seedling, baddie) {
 
