@@ -138,7 +138,7 @@ function update() {
     game.physics.arcade.collide(baddie, platforms);
 
     game.physics.arcade.overlap(seedling, stars, collectStar, null, this);
-    game.physics.arcade.overlap(seedling, baddie, seedlingDies, null, this);
+    game.physics.arcade.overlap(seedling, baddie, loseHp, null, this);
 
     //  Reset the seedlings velocity (movement)
     seedling.body.velocity.x = 0;
@@ -180,10 +180,9 @@ function update() {
     {
         seedling.body.velocity.y = -150;
     }
-        console.log(seedling.x + "This is x of seedling");
-        console.log(seedling.y + "This is y of seedling");
-        console.log(game.camera.x + "This is the game camera");
-        console.log(Phaser.Camera.x + "This is the phaser camera");
+        //console.log(seedling.x + "This is x of seedling");
+        //console.log(seedling.y + "This is y of seedling");
+        //console.log(game.camera.x + "This is the game camera");
 }
 function collectStar (seedling, star) {
 
