@@ -112,7 +112,7 @@ function create() {
 //              'down' : Phaser.KeyCode.S, 'left' : Phaser.KeyCode.A,
 //              'right' : Phaser.KeyCode.D});
 
-    //game.camera.follow(seedling);
+    game.camera.follow(seedling);
 
 }
 
@@ -177,8 +177,6 @@ function update() {
     {
         seedling.body.velocity.y = -150;
     }
-        game.camera.x = seedling.x;
-        game.camera.y = seedling.y;
         console.log(seedling.x + "This is x of seedling");
         console.log(seedling.y + "This is y of seedling");
         console.log(game.camera.x + "This is the game camera");
