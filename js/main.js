@@ -8,7 +8,7 @@ var sky;
 
 var score = 0;
 var scoreText;
-var hp = 100%;
+var hp = 100;
 var hpText;
 var dandelion;
 
@@ -86,6 +86,7 @@ function create() {
     seedling.animations.add('left', [0, 1, 2, 3], 10, true);
     seedling.animations.add('right', [5, 6, 7, 8], 10, true);
 
+    seedling.health = hp;
     stars = game.add.group();
 
     stars.enableBody = true;
@@ -197,8 +198,8 @@ function collectStar (seedling, star) {
 function loseHp (seedling, baddie) {
   
   seedling.damage(20);
-  hp -= 20;
-  hpText.text = 'hp: ' + hp;
+  hpText = 'hp: ' + seedling.health;
+  
 }
 
 function seedlingDies (seedling, baddie) {
