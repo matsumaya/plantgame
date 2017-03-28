@@ -8,6 +8,8 @@ var sky;
 
 var score = 0;
 var scoreText;
+var hp = 100%;
+var hpText;
 var dandelion;
 
 function preload() {
@@ -104,7 +106,7 @@ function create() {
     scoreText = game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
     scoreText.fixedToCamera = true;
   
-    hpText = game.add.text(700, 16, 'hp: 0', {fontSize: '32px', fill: '#000'})
+    hpText = game.add.text(700, 16, 'hp: 100%', {fontSize: '32px', fill: '#000'})
     hpText.fixedToCamera = true;
 
     cursors = game.input.keyboard.createCursorKeys();
@@ -193,6 +195,12 @@ function collectStar (seedling, star) {
 
 
 }
+function loseHp (seedling, baddie) {
+  
+  seedling.damage(20);
+  hp -= 20;
+  hpText.text = 'hp: ' + hp;
+
 function seedlingDies (seedling, baddie) {
 
   seedling.kill();
